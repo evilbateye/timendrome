@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">timendrome</string>
+    <string name="action_settings">Settings</string>
+    <string name="SaveButton">Save</string>
+    <string name="CancelButton">Cancel</string>
+    <string name="SameDigitsCheckBox">Same Digits</string>
+
+</resources>
