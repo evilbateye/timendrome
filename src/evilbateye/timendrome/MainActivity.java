@@ -1,15 +1,12 @@
 package evilbateye.timendrome;
 
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
+import evilbateye.timendrome.R;
 
 
 public class MainActivity extends Activity {
@@ -17,6 +14,7 @@ public class MainActivity extends Activity {
 	private CheckBox sameDigitsCB;
 	private CheckBox enabledCB;
 	private SharedPreferences.Editor editor;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +33,6 @@ public class MainActivity extends Activity {
 		sameDigitsCB.setChecked(prefs.getBoolean(TimendromeUtils.PREF_SAMEDIGITS, false));
 		enabledCB.setChecked(prefs.getBoolean(TimendromeUtils.PREF_ENABLED, true));
 		
-		Log.d(this.getClass().getSimpleName(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString());
-		
-		MediaPlayer mp = new MediaPlayer();
-		
-		try {
-			mp.setVolume(1.0f, 1.0f);
-			mp.setDataSource(getApplicationContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
-			mp.setAudioStreamType(AudioManager.STREAM_ALARM);
-			mp.setLooping(true);
-			mp.prepare();
-			mp.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-			mp.release();
-		}
 	}
 
 	@Override
@@ -80,6 +63,8 @@ public class MainActivity extends Activity {
 		
 		//End activity.
 		this.finish();
+	
 	}
+	
 
 }

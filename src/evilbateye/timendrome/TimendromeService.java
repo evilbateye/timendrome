@@ -1,14 +1,9 @@
 package evilbateye.timendrome;
 
-import java.io.IOException;
-
 import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.RingtoneManager;
 import android.util.Log;
 
 public class TimendromeService extends IntentService {
@@ -32,9 +27,9 @@ public class TimendromeService extends IntentService {
 		if (!prefs.getBoolean(TimendromeUtils.PREF_ENABLED, true)) return;
 		
 		if (prefs.getBoolean(TimendromeUtils.PREF_SAMEDIGITS, false)) {
-			
-			
-			
+			Intent i = new Intent(this, TimendromeAlarmActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			getApplication().startActivity(i);
 		}
 				
 		//Set new trigger time.

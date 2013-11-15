@@ -7,5 +7,7 @@
     <string name="CancelButton">Cancel</string>
     <string name="SameDigitsCheckBox">Same Digits</string>
     <string name="EnableCheckBox">Enabled</string>
+    <string name="title_activity_timendrome_alarm">TimendromeAlarmActivity</string>
+    <string name="OkButton">OK!</string>
 
 </resources>

@@ -27,7 +27,9 @@ public final class TimendromeUtils {
 		gc.add(Calendar.SECOND, -sec);
 		gc.add(Calendar.MINUTE, 1);
 		
+		//TEST
 		return gc.getTimeInMillis();
+		//return new GregorianCalendar().getTimeInMillis() + 500;
 	}
 	
 	@SuppressLint("NewApi")
