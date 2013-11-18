@@ -21,16 +21,13 @@ public class TimendromeService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		Log.d(this.getClass().getSimpleName(), "Service starting.");
 		
-		
 		SharedPreferences prefs = this.getSharedPreferences(TimendromeUtils.PREFS_FILE_NAME, MODE_PRIVATE);
 		
 		if (!prefs.getBoolean(TimendromeUtils.PREF_ENABLED, true)) return;
-		
-		if (prefs.getBoolean(TimendromeUtils.PREF_SAMEDIGITS, false)) {
-			Intent i = new Intent(this, TimendromeAlarmActivity.class);
-			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			getApplication().startActivity(i);
-		}
+				
+		Intent i = new Intent(this, TimendromeAlarmActivity.class);
+		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		getApplication().startActivity(i);
 				
 		//Set new trigger time.
 		long millis = intent.getExtras().getLong(TimendromeUtils.EXTRA_MILLIS) + 60 * 1000;

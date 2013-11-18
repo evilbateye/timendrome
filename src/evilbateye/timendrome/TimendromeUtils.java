@@ -13,7 +13,6 @@ import android.os.Build;
 public final class TimendromeUtils {
 	public static final String EXTRA_MILLIS = "timeInMillis";
 	public static final String PREFS_FILE_NAME = "timendrome.prefs";
-	public static final String PREF_SAMEDIGITS = "same_digits";
 	public static final String PREF_ENABLED = "enabled";
 	public static long nextPreciseMinute() {
 		
