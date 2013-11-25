@@ -2,6 +2,7 @@ package evilbateye.timendrome;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -15,6 +16,7 @@ public final class TimendromeUtils {
 	public static final int REQUEST_CODE_EDIT = 0;
 	public static final String EXTRA_MILLIS = "timeInMillis";
 	public static final String EXTRA_ITEM = "timendromeRegexItem";
+	public static final String EXTRA_ITEM_ARRAY = "timendromeRegexItemArray";
 	public static final String EXTRA_ITEM_POS = "timendromeRegexItemPos";
 	public static final String PREFS_FILE_NAME = "timendrome.prefs";
 	public static final String PREF_ENABLED = "enabled";
@@ -56,5 +58,16 @@ public final class TimendromeUtils {
 		} else {
 			am.setExact(AlarmManager.RTC_WAKEUP, millis, pi);
 		}
+	}
+	
+	public static String timeString(long millis) {
+		GregorianCalendar gc = new GregorianCalendar();
+		gc.setTimeInMillis(millis);
+		
+		String time = String.format(Locale.getDefault(), "%02d%02d", 
+				gc.get(Calendar.HOUR_OF_DAY),
+				gc.get(Calendar.MINUTE)
+		);
+		return time;
 	}
 }

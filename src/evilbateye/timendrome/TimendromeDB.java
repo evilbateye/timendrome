@@ -6,14 +6,12 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class TimendromeDB extends SQLiteOpenHelper {
 
-	private static SQLiteDatabase instance = null;
+	private SQLiteDatabase instance = null;
 	
 	public static final String DATABASE_NAME = "timendrome.db";
 	public static final int DATABASE_VERSION = 1;
@@ -24,20 +22,11 @@ public class TimendromeDB extends SQLiteOpenHelper {
 	public static final String COLUMN_NAME = "name";
 	public static final String COLUMN_REGEX = "regex";
 
-	private TimendromeDB(Context context) {
+	public TimendromeDB(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		instance = this.getWritableDatabase();
 	}
 	
-	public static void openDB(Context context) {
-		if (TimendromeDB.instance == null) TimendromeDB.instance = new TimendromeDB(context).getWritableDatabase();
-	}
-	
-	public static void closeDB() {
-		if (TimendromeDB.instance == null) return;
-		TimendromeDB.instance.close();
-		TimendromeDB.instance = null;
-	}
-
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE + " (" +
@@ -53,33 +42,33 @@ public class TimendromeDB extends SQLiteOpenHelper {
 		this.onCreate(db);
 	}
 	
-	public static long insert(TimendromeRegexItem item) {
+	public long insert(TimendromeRegexItem item) {
 		ContentValues cv = new ContentValues();
 		cv.put(COLUMN_ISENABLED, item.isEnabled());
 		cv.put(COLUMN_NAME, item.name());
 		cv.put(COLUMN_REGEX, item.regex());
 		
-		long id = TimendromeDB.instance.insert(TABLE, null, cv);
+		long id = instance.insert(TABLE, null, cv);
 		item.setId(id);
 		return id;
 	}
 	
-	public static int update(TimendromeRegexItem item) {
+	public int update(TimendromeRegexItem item) {
 		if (item.id() < 0) return -1;
 		ContentValues cv = new ContentValues();
 		cv.put(COLUMN_ISENABLED, item.isEnabled());
 		cv.put(COLUMN_NAME, item.name());
 		cv.put(COLUMN_REGEX, item.regex());
-		return TimendromeDB.instance.update(TABLE, cv, COLUMN_ID + "=" + item.id(), null);
+		return instance.update(TABLE, cv, COLUMN_ID + "=" + item.id(), null);
 	}
 	
-	public static int delete(TimendromeRegexItem item) {
+	public int delete(TimendromeRegexItem item) {
 		if (item.id() < 0) return -1;
-		return TimendromeDB.instance.delete(TABLE, COLUMN_ID + "=" + item.id(), null);
+		return instance.delete(TABLE, COLUMN_ID + "=" + item.id(), null);
 	}
 	
-	public static TimendromeRegexItem select(long id) {
-		Cursor c = TimendromeDB.instance.query(TABLE, null, COLUMN_ID + "=" + id, null, null, null, null);
+	public TimendromeRegexItem select(long id) {
+		Cursor c = instance.query(TABLE, null, COLUMN_ID + "=" + id, null, null, null, null);
 		TimendromeRegexItem item = null;
 		if (c.moveToFirst()) {
 			item = new TimendromeRegexItem();
@@ -92,9 +81,9 @@ public class TimendromeDB extends SQLiteOpenHelper {
 		return item;
 	}
 	
-	public static List<TimendromeRegexItem> selectAll() {
+	public List<TimendromeRegexItem> selectAll() {
 		List<TimendromeRegexItem> list = new ArrayList<TimendromeRegexItem>();
-		Cursor c = TimendromeDB.instance.query(TABLE, null, null, null, null, null, null);
+		Cursor c = instance.query(TABLE, null, null, null, null, null, null);
 		if (c.moveToFirst()) {
 			do {
 				TimendromeRegexItem item = new TimendromeRegexItem();

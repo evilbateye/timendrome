@@ -38,10 +38,8 @@ public class MainActivity extends ListActivity {
 		prefs = this.getSharedPreferences(TimendromeUtils.PREFS_FILE_NAME, MODE_PRIVATE);
 		editor = prefs.edit();
 		
-		TimendromeDB.openDB(this);
-		
 		//TEST
-		TimendromeRegexItem item = new TimendromeRegexItem();
+		/*TimendromeRegexItem item = new TimendromeRegexItem();
 		
 		item.setName("All");
 		item.setRegex("(\\d)\\1*");
@@ -49,15 +47,14 @@ public class MainActivity extends ListActivity {
 		
 		item.setName("Palindromes");
 		item.setRegex("(\\d)(\\d)\\1\\2");
-		TimendromeDB.insert(item);
-		
+		TimendromeDB.insert(item);*/
+						
 		adapter = new TimendromeAdapter(this);
 		this.setListAdapter(adapter);
 	}
 	
 	@Override
 	public void onDestroy() {
-		TimendromeDB.closeDB();
 		super.onDestroy();
 	}
 	
@@ -88,9 +85,12 @@ public class MainActivity extends ListActivity {
 	/* Defined in timendrome_regex_item.xml as android:onClick function */
 	public void regexItemEnabledClicked(View v) {
 		CheckBox cb = (CheckBox) v;
-		TimendromeRegexItem item = (TimendromeRegexItem) adapter.getItem((Integer) cb.getTag());
+		int pos = (Integer) cb.getTag();
+		
+		TimendromeRegexItem item = (TimendromeRegexItem) adapter.getItem(pos);
 		item.setEnabled(cb.isChecked());
-		TimendromeDB.update(item);
+		
+		adapter.update(pos, item);
 	}
 	
 	public void regexItemEditClicked(View v) {
@@ -122,10 +122,12 @@ public class MainActivity extends ListActivity {
 			case TimendromeUtils.REQUEST_CODE_EDIT: {
 				
 				if (resultCode == RESULT_OK) {
-					TimendromeRegexItem item = (TimendromeRegexItem) data.getSerializableExtra(TimendromeUtils.EXTRA_ITEM);
+					TimendromeRegexItem item = (TimendromeRegexItem) data.getParcelableExtra(TimendromeUtils.EXTRA_ITEM);
 					int pos = data.getIntExtra(TimendromeUtils.EXTRA_ITEM_POS, -1);
-					adapter.update(pos, item);
-					adapter.notifyDataSetChanged();
+					if (pos > -1) {
+						adapter.update(pos, item);
+						adapter.notifyDataSetChanged();
+					}
 				}
 				break;
 			}

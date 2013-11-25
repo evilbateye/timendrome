@@ -27,7 +27,7 @@ public class TimendromeEditActivity extends Activity {
 		name = (EditText) this.findViewById(R.id.edit_activity_name);		
 		regex = (EditText) this.findViewById(R.id.edit_activity_regex);
 		
-		item = (TimendromeRegexItem) this.getIntent().getSerializableExtra(TimendromeUtils.EXTRA_ITEM);
+		item = (TimendromeRegexItem) this.getIntent().getParcelableExtra(TimendromeUtils.EXTRA_ITEM);
 		if (item == null) return;
 		
 		this.setTitle(R.string.title_activity_timendrome_edit);

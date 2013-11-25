@@ -15,12 +15,13 @@ import java.util.List;
 public class TimendromeAdapter extends BaseAdapter{
 	
 	private Context context = null;
-	
+	private TimendromeDB db = null;
 	private List<TimendromeRegexItem> list = new ArrayList<TimendromeRegexItem>();
 	
 	public TimendromeAdapter(Context context) {
 		this.context = context;
-		list = TimendromeDB.selectAll();
+		db = new TimendromeDB(context);
+		list = db.selectAll();
 	}
 	
 	@Override
@@ -58,17 +59,17 @@ public class TimendromeAdapter extends BaseAdapter{
 	
 	public void delete(int pos) {
 		//TimendromeRegexItem item = (TimendromeRegexItem) this.getItem(pos);
-		TimendromeDB.delete(list.get(pos));
+		db.delete(list.get(pos));
 		list.remove(pos);
 	}
 	
 	public void update(int pos, TimendromeRegexItem item) {
-		TimendromeDB.update(item);
+		db.update(item);
 		list.set(pos, item);
 	}
 	
 	public void add(TimendromeRegexItem item) {
-		TimendromeDB.insert(item);
+		db.insert(item);
 		list.add(item);
 	}
 }
