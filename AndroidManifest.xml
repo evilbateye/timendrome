@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="evilbateye.timendrome.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,6 +42,11 @@
         <activity
             android:name="evilbateye.timendrome.TimendromeAlarmActivity"
             android:label="@string/title_activity_timendrome_alarm" >
+        </activity>
+        <activity
+            android:name="evilbateye.timendrome.TimendromeEditActivity"
+            android:launchMode="singleTop" >
+            <!-- android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" -->
         </activity>
     </application>
 

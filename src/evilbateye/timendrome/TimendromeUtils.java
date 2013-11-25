@@ -11,7 +11,11 @@ import android.content.Intent;
 import android.os.Build;
 
 public final class TimendromeUtils {
+	public static final int REQUEST_CODE_ADD = 1;
+	public static final int REQUEST_CODE_EDIT = 0;
 	public static final String EXTRA_MILLIS = "timeInMillis";
+	public static final String EXTRA_ITEM = "timendromeRegexItem";
+	public static final String EXTRA_ITEM_POS = "timendromeRegexItemPos";
 	public static final String PREFS_FILE_NAME = "timendrome.prefs";
 	public static final String PREF_ENABLED = "enabled";
 	public static long nextPreciseMinute() {

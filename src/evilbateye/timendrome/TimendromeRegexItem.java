@@ -1,7 +1,9 @@
 package evilbateye.timendrome;
 
-public class TimendromeRegexItem {
-	
+import java.io.Serializable;
+
+public class TimendromeRegexItem implements Serializable {		
+	private static final long serialVersionUID = 7138720956322967520L;
 	private long id = -1;
 	private boolean isEnabled = true;
 	private String name = "";

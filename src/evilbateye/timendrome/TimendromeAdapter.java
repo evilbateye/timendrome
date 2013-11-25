@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,21 +33,42 @@ public class TimendromeAdapter extends BaseAdapter{
 	public long getItemId(int pos) { return pos; }
 
 	@Override
-	public View getView(int pos, View view, ViewGroup viewGroup) {
-		if (view == null) view = LayoutInflater.from(this.context).inflate(R.layout.timendrome_regex_item, null);
+	public View getView(int pos, View convertView, ViewGroup viewGroup) {
+		if (convertView == null) convertView = LayoutInflater.from(this.context).inflate(R.layout.timendrome_regex_item, null);
 		
 		TimendromeRegexItem item = (TimendromeRegexItem) this.getItem(pos);
-		CheckBox isEnabledCB = (CheckBox) view.findViewById(R.id.regex_item_isenabled);
+		CheckBox isEnabledCB = (CheckBox) convertView.findViewById(R.id.regex_item_isenabled);
 		isEnabledCB.setChecked(item.isEnabled());
 		isEnabledCB.setTag(pos);
 		
-		TextView nameTW = (TextView) view.findViewById(R.id.regex_item_name);
+		TextView nameTW = (TextView) convertView.findViewById(R.id.regex_item_name);
 		nameTW.setText(item.name());
-		
-		TextView regexTW = (TextView) view.findViewById(R.id.regex_item_regex);
+				
+		TextView regexTW = (TextView) convertView.findViewById(R.id.regex_item_regex);
 		regexTW.setText(item.regex());
 		
-		return view;
+		ImageButton edit = (ImageButton) convertView.findViewById(R.id.regex_item_button_edit);
+		edit.setTag(pos);
+		
+		ImageButton delete = (ImageButton) convertView.findViewById(R.id.regex_item_button_delete);
+		delete.setTag(pos);
+		
+		return convertView;
 	}
-
+	
+	public void delete(int pos) {
+		//TimendromeRegexItem item = (TimendromeRegexItem) this.getItem(pos);
+		TimendromeDB.delete(list.get(pos));
+		list.remove(pos);
+	}
+	
+	public void update(int pos, TimendromeRegexItem item) {
+		TimendromeDB.update(item);
+		list.set(pos, item);
+	}
+	
+	public void add(TimendromeRegexItem item) {
+		TimendromeDB.insert(item);
+		list.add(item);
+	}
 }

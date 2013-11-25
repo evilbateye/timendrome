@@ -3,14 +3,22 @@
 
     <string name="app_name">timendrome</string>
     <string name="action_settings">Settings</string>
-    <string name="action_enable">Enable</string>
+    <string name="action_enable">On/Off</string>
+    <string name="action_add">Add</string>
     
-    <string name="title_activity_timendrome_alarm">TimendromeAlarmActivity</string>
+    <string name="title_activity_timendrome_alarm">alarm</string>
+    <string name="title_activity_timendrome_edit">edit</string>
+    <string name="title_activity_timendrome_edit_add">add</string>
     
     <string name="OkButton">OK!</string>
-    
     <string name="fragment_list_empty_text">No rules specified.</string>
-    
     <string name="no_regexes">No items in the list.</string>
-
+    <string name="regex_item_button_edit_desc">Edit.</string>
+    <string name="regex_item_button_delete_desc">Delete.</string>
+    <string name="edit_activity_name_hint">name</string>
+    <string name="edit_activity_regex_hint">regex</string>
+    <string name="edit_activity_submit_title">submit</string>
+    <string name="edit_activity_isenabled_text">enabled</string>
+    
+    
 </resources>
