@@ -78,26 +78,24 @@ public class TimendromeAdapter extends BaseAdapter {
 		//TimendromeRegexItem item = (TimendromeRegexItem) this.getItem(pos);
 		db.delete(list.get(pos));
 		list.remove(pos);
+		notifyDataSetChanged();
 	}
 	
 	public void update(int pos, TimendromeRegexItem item) {
 		db.update(item);
 		list.set(pos, item);
+		notifyDataSetChanged();
 	}
 	
 	public void add(TimendromeRegexItem item) {
 		db.insert(item);
 		list.add(item);
+		notifyDataSetChanged();
 	}
 	
-	public void regexItemEnabledClicked(View v) {
-		CheckBox cb = (CheckBox) v;
-		int pos = (Integer) cb.getTag();
-		
-		TimendromeRegexItem item = (TimendromeRegexItem) this.getItem(pos);
-		item.setEnabled(cb.isChecked());
-		
-		this.update(pos, item);
+	public void reload() {
+		list = db.selectAll();
+		notifyDataSetChanged();
 	}
 	
 	private View.OnClickListener listener = new View.OnClickListener() {
@@ -135,8 +133,7 @@ public class TimendromeAdapter extends BaseAdapter {
 				
 				case R.id.regex_item_button_delete : {
 					
-					delete((Integer) v.getTag());
-					notifyDataSetChanged();
+					delete((Integer) v.getTag());				
 					
 					break;
 				}

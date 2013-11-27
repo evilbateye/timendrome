@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,6 +58,8 @@ public class TimendromeAlarmActivity extends ListActivity {
 	
 	public boolean OkButtonClicked(MenuItem item) {
 		mp.stop();
+		Intent i = new Intent(TimendromeUtils.ACTION_RELOAD);
+		LocalBroadcastManager.getInstance(this).sendBroadcast(i);
 		this.finish();
 		return true;
 	}	
@@ -78,7 +81,6 @@ public class TimendromeAlarmActivity extends ListActivity {
 					int pos = data.getIntExtra(TimendromeUtils.EXTRA_ITEM_POS, -1);
 					if (pos > -1) {
 						adapter.update(pos, item);
-						adapter.notifyDataSetChanged();
 					}
 				}
 				break;

@@ -14,6 +14,8 @@ import android.os.Build;
 public final class TimendromeUtils {
 	public static final int REQUEST_CODE_ADD = 1;
 	public static final int REQUEST_CODE_EDIT = 0;
+	
+	public static final String ACTION_RELOAD = "evilbateye.timendrome.actionReload";
 	public static final String EXTRA_MILLIS = "timeInMillis";
 	public static final String EXTRA_ITEM = "timendromeRegexItem";
 	public static final String EXTRA_ITEM_ARRAY = "timendromeRegexItemArray";
