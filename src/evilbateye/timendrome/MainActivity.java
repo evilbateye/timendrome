@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.R.integer;
 import android.os.Bundle;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -34,6 +35,7 @@ public class MainActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 					
 		prefs = this.getSharedPreferences(TimendromeUtils.PREFS_FILE_NAME, MODE_PRIVATE);
 		editor = prefs.edit();
@@ -73,17 +75,8 @@ public class MainActivity extends ListActivity {
 		Log.d("MainActivity", "Settings clicked.");
 	}
 	
-	public void onActionEnableClicked(MenuItem item) {
-		item.setChecked(!item.isChecked());
-				
-		editor.putBoolean(TimendromeUtils.PREF_ENABLED, item.isChecked());
-		editor.commit();
-		
-		if (item.isChecked()) TimendromeUtils.setNextAlarm(this, TimendromeUtils.nextPreciseMinute());
-	}
-	
 	/* Defined in timendrome_regex_item.xml as android:onClick function */
-	public void regexItemEnabledClicked(View v) {
+	/*public void regexItemEnabledClicked(View v) {
 		CheckBox cb = (CheckBox) v;
 		int pos = (Integer) cb.getTag();
 		
@@ -91,9 +84,9 @@ public class MainActivity extends ListActivity {
 		item.setEnabled(cb.isChecked());
 		
 		adapter.update(pos, item);
-	}
+	}*/
 	
-	public void regexItemEditClicked(View v) {
+	/*public void regexItemEditClicked(View v) {
 		int pos = (Integer) v.getTag();
 		
 		TimendromeRegexItem item = (TimendromeRegexItem) adapter.getItem(pos);
@@ -103,6 +96,20 @@ public class MainActivity extends ListActivity {
 		i.putExtra(TimendromeUtils.EXTRA_ITEM_POS, pos);
 		
 		this.startActivityForResult(i, TimendromeUtils.REQUEST_CODE_EDIT);
+	}*/
+	
+	/*public void regexItemDeleteClicked(View v) {
+		adapter.delete((Integer) v.getTag());
+		adapter.notifyDataSetChanged();
+	}*/
+	
+	public void onActionOnOffClicked(MenuItem item) {
+		item.setChecked(!item.isChecked());
+				
+		editor.putBoolean(TimendromeUtils.PREF_ENABLED, item.isChecked());
+		editor.commit();
+		
+		if (item.isChecked()) TimendromeUtils.setNextAlarm(this, TimendromeUtils.nextPreciseMinute());
 	}
 	
 	public boolean regexItemAddClicked(MenuItem v) {
@@ -116,8 +123,7 @@ public class MainActivity extends ListActivity {
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.d("result", String.valueOf(resultCode));
-		Log.d("request", String.valueOf(requestCode));
+		
 		switch (requestCode) {
 			case TimendromeUtils.REQUEST_CODE_EDIT: {
 				
@@ -135,7 +141,7 @@ public class MainActivity extends ListActivity {
 			case TimendromeUtils.REQUEST_CODE_ADD: {
 				
 				if (resultCode == RESULT_OK) {
-					TimendromeRegexItem item = (TimendromeRegexItem) data.getSerializableExtra(TimendromeUtils.EXTRA_ITEM);
+					TimendromeRegexItem item = (TimendromeRegexItem) data.getParcelableExtra(TimendromeUtils.EXTRA_ITEM);
 					adapter.add(item);
 					adapter.notifyDataSetChanged();
 				}
@@ -145,17 +151,14 @@ public class MainActivity extends ListActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
-	public void regexItemDeleteClicked(View v) {
-		adapter.delete((Integer) v.getTag());
-		adapter.notifyDataSetChanged();
-	}
+	
 		
-	@Override
+	/*@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		
 		Log.d("pos:", String.valueOf(position));
 		Log.d("row id:", String.valueOf(id));
 		
 		super.onListItemClick(l, v, position, id);
-	}
+	}*/
 }

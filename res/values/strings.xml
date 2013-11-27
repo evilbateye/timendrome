@@ -10,7 +10,7 @@
     <string name="title_activity_timendrome_edit">edit</string>
     <string name="title_activity_timendrome_edit_add">add</string>
     
-    <string name="OkButton">OK!</string>
+    <string name="action_alarm_ok_button_title">OK!</string>
     <string name="fragment_list_empty_text">No rules specified.</string>
     <string name="no_regexes">No items in the list.</string>
     <string name="regex_item_button_edit_desc">Edit.</string>

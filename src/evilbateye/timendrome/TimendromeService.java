@@ -39,7 +39,7 @@ public class TimendromeService extends IntentService {
 		Log.d("service time", time);
 				
 		for (int i = 0; i < list.size();) {
-			if (!time.matches(list.get(i).regex())) {
+			if (!list.get(i).isEnabled() || !time.matches(list.get(i).regex())) {
 				list.remove(i);
 			} else {
 				Log.d("service matcher", list.get(i).regex());
